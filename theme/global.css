@@ -554,6 +554,28 @@ details > summary + p,
   background-color: darkgreen;
   color: white;
 }
+.quarkdown .code-callout-marker {
+  font-family: var(--qd-main-custom-font, var(--qd-main-localized-font, var(--qd-main-font, serif))), var(--qd-main-localized-font, var(--qd-main-font, serif)), var(--qd-main-font, serif), serif;
+  background-color: var(--qd-background-color);
+  font-variant-numeric: tabular-nums;
+  color: var(--qd-main-color);
+  border: 1px solid var(--qd-main-color);
+  border-radius: 100%;
+  padding: 0 var(--qd-digit-circle-padding);
+}
+.quarkdown pre .code-callout-marker {
+  margin-left: 0.5em;
+}
+.quarkdown .code-callouts {
+  list-style: none;
+  padding-left: 0;
+}
+.quarkdown .code-callouts .code-callout-marker {
+  margin-right: 0.5em;
+}
+.quarkdown :is(pre, figure):has(code[data-callouts]) {
+  margin-bottom: 0;
+}
 .quarkdown .hljs-copy-wrapper .hljs-copy-container {
   --hljs-theme-padding: 16px !important;
   transform: none;
@@ -1682,6 +1704,7 @@ body.quarkdown-paged:not(:has(.pagedjs_page)) {
   --qd-caption-margin: 0.4em;
   --qd-box-margin-multiplier: 1.5;
   --qd-box-content-vertical-padding: 8px;
+  --qd-digit-circle-padding: 0.55cap;
   --qd-nested-navigation-padding-left: 28px;
   --qd-page-content-border-width: unset;
   --qd-page-content-border-color: var(--qd-main-color);
