@@ -183,6 +183,13 @@ body.quarkdown.quarkdown-slides .reveal .slides > .pdf-page {
   border-style: var(--qd-page-content-border-style);
   box-sizing: border-box;
 }
+body.quarkdown.quarkdown-slides .reveal .slides > .pdf-page section {
+  padding: 0 var(--qd-slides-horizontal-inset, 0) !important;
+  top: 0 !important;
+}
+body.quarkdown.quarkdown-slides .reveal .slides.slides.slides section:not(:has(h1, h2)) {
+  padding-top: var(--qd-slides-blank-vertical-inset, 0) !important;
+}
 body.quarkdown.quarkdown-paged .pagedjs_pages {
   display: flex;
   flex-direction: column;
@@ -212,6 +219,9 @@ body.quarkdown.quarkdown-paged .pagedjs_area {
 .quarkdown caption, .quarkdown figcaption {
   text-align: var(--qd-horizontal-alignment-local);
   text-align-last: center;
+}
+.quarkdown .stack {
+  justify-content: var(--qd-horizontal-alignment-global);
 }
 .quarkdown [style*=text-align] > :is(p, li, span) {
   text-align: unset !important;
@@ -343,15 +353,15 @@ body.quarkdown.quarkdown-paged .pagedjs_area {
   text-transform: none !important;
   font-family: var(--qd-heading-custom-font, var(--qd-heading-localized-font, var(--qd-heading-font, var(--qd-main-custom-font, var(--qd-main-localized-font, var(--qd-main-font, serif))), var(--qd-main-localized-font, var(--qd-main-font, serif)), var(--qd-main-font, serif), serif))), var(--qd-heading-localized-font, var(--qd-heading-font, var(--qd-main-custom-font, var(--qd-main-localized-font, var(--qd-main-font, serif))), var(--qd-main-localized-font, var(--qd-main-font, serif)), var(--qd-main-font, serif), serif)), var(--qd-heading-font, var(--qd-main-custom-font, var(--qd-main-localized-font, var(--qd-main-font, serif))), var(--qd-main-localized-font, var(--qd-main-font, serif)), var(--qd-main-font, serif), serif), var(--qd-main-custom-font, var(--qd-main-localized-font, var(--qd-main-font, serif))), var(--qd-main-localized-font, var(--qd-main-font, serif)), var(--qd-main-font, serif), serif;
 }
-.quarkdown.quarkdown-slides section > :is(h1, h2, h3, h4, h5, h6):first-child {
-  margin-top: 0;
-}
 .quarkdown div.marker {
   display: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
   break-after: avoid;
+}
+h1.allow-break-after, h2.allow-break-after, h3.allow-break-after, h4.allow-break-after, h5.allow-break-after, h6.allow-break-after {
+  break-after: auto;
 }
 
 .quarkdown.quarkdown p {
@@ -479,12 +489,6 @@ details > summary + p,
 .quarkdown table:not(pre table) > caption.caption-bottom {
   margin-top: var(--caption-margin);
 }
-.quarkdown figure > figcaption.caption-top {
-  order: 0;
-}
-.quarkdown figure > figcaption.caption-bottom {
-  order: 2;
-}
 .quarkdown table:not(pre table):has(> caption.caption-top) {
   caption-side: top;
 }
@@ -540,6 +544,13 @@ details > summary + p,
 .quarkdown pre, .quarkdown pre code {
   border-radius: var(--qd-code-border-radius);
 }
+.quarkdown-paged.quarkdown pre,
+.quarkdown-paged.quarkdown pre code {
+  overflow: clip;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 .quarkdown .hljs-ln td {
   padding: var(--qd-code-line-numbers-padding) !important;
 }
@@ -654,12 +665,11 @@ details > summary + p,
   text-align: center;
 }
 .quarkdown figure {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
 }
-.quarkdown figure > :not(figcaption) {
-  order: 1;
+.quarkdown figure > .mermaid {
+  width: fit-content;
+  margin-inline: auto;
 }
 .quarkdown figure:has(.mermaid, > pre) {
   margin-left: 0;
@@ -668,6 +678,13 @@ details > summary + p,
 .quarkdown figure > pre {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.quarkdown div.whitespace {
+  margin-top: var(--qd-block-margin);
+}
+.quarkdown span.whitespace {
+  display: inline-block;
 }
 
 .quarkdown.quarkdown-plain .mermaid > svg {
@@ -1015,6 +1032,9 @@ details > summary + p,
   color: inherit !important;
 }
 
+.quarkdown .stack {
+  align-items: center;
+}
 .quarkdown .stack > :is(p, h1, h2, h3, h4, h5, h6, figure) {
   margin: 0 !important;
 }
@@ -1347,6 +1367,9 @@ body.quarkdown-paged:not(:has(.pagedjs_page)) {
 }
 .quarkdown-docs aside nav[data-role=table-of-contents] a {
   transition: color 0.2s, opacity 0.2s;
+}
+.quarkdown-docs .table-scroll-area {
+  overflow-x: auto;
 }
 .quarkdown-docs #sibling-pages-button-area {
   display: flex;
@@ -1760,6 +1783,8 @@ body.quarkdown-paged:not(:has(.pagedjs_page)) {
   --qd-file-tree-highlight-color: color-mix(in srgb, var(--qd-link-color) 10%, transparent);
   --qd-kbd-background-color: color-mix(in srgb, var(--qd-main-color-muted) 15%, var(--qd-background-color));
   --qd-kbd-border-color: color-mix(in srgb, var(--qd-main-color-muted) 90%, var(--qd-main-color));
+  --qd-slides-blank-vertical-inset: 3rem;
+  --qd-slides-horizontal-inset: 2rem;
   --qd-docs-header-height: 60px;
   --qd-docs-header-vertical-padding: 12px;
   --qd-docs-header-background-color: var(--qd-primary-color);
